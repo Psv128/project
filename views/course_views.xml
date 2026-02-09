@@ -1,0 +1,43 @@
+<odoo>
+    <record id="view_course_tree" model="ir.ui.view">
+        <field name="name">academy.course.tree</field>
+        <field name="model">academy.course</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="price"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_course_form" model="ir.ui.view">
+        <field name="name">academy.course.form</field>
+        <field name="model">academy.course</field>
+        <field name="arch" type="xml">
+            <form string="Curso">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="price"/>
+                        <field name="student_ids">
+                            <tree string="Alumnos matriculados">
+                                <field name="name"/>
+                                <field name="age"/>
+                                <field name="course_cost"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <menuitem id="menu_academy_root" name="Gestión Academia"/>
+    <menuitem id="menu_academy_courses" name="Cursos" parent="menu_academy_root" action="action_courses"/>
+
+    <record id="action_courses" model="ir.actions.act_window">
+        <field name="name">Cursos</field>
+        <field name="res_model">academy.course</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
