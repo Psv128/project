@@ -62,9 +62,6 @@ Ve a: http://localhost:8069
 Crea la base de datos (anota el usuario admin y la clave).
 
 
-
-
-
 sudo docker exec -u root -it vboxuser-odoo-1 odoo scaffold mi_modulo /mnt/extra-addons
 
 
@@ -76,3 +73,7 @@ vboxuser-odoo-1: nombre del contenedor.
 odoo scaffold: comando de Odoo para crear plantilla de modulo.
 mi_modulo: nombre tecnico del modulo (carpeta y nombre interno).
 /mnt/extra-addons: ruta dentro del contenedor donde se creara la carpeta.
+
+sudo usermod -aG docker $USER
+docker exec -it vboxuser-odoo-1 bash
+
