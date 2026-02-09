@@ -3,12 +3,12 @@
         <field name="name">academy.student.tree</field>
         <field name="model">academy.student</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="age"/>
                 <field name="course_id"/>
                 <field name="course_cost"/>
-            </tree>
+            </list>
         </field>
     </record>
 
