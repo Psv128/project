@@ -1,0 +1,62 @@
+1) Instalar Docker y Docker Compose
+
+sudo apt update
+sudo apt install -y ca-certificates curl gnupg lsb-release
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+echo \
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
+https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo usermod -aG docker $USER
+newgrp docker
+
+sudo apt updatesudo apt install -y ca-certificates curl gnupg lsb-releasesudo install -m 0755 -d /etc/apt/keyringscurl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpgsudo chmod a+r /etc/apt/keyrings/docker.gpgecho \"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | \sudo tee /etc/apt/sources.list.d/docker.list > /dev/nullsudo apt updatesudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-pluginsudo usermod -aG docker $USERnewgrp docker
+2) Crear carpeta de trabajo y archivo docker-compose
+
+mkdir -p ~/odoo17-docker/{addons,config,db}
+cd ~/odoo17-docker
+
+mkdir -p ~/odoo17-docker/{addons,config,db}cd ~/odoo17-docker
+Crea el archivo docker-compose.yml:
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+  odoo:
+    image: odoo:17
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+    volumes:
+      - ./addons:/mnt/extra-addons
+      - ./config:/etc/odoo
+
+
+services:  db:    image: postgres:15    environment:      - POSTGRES_DB=postgres      - POSTGRES_USER=odoo      - POSTGRES_PASSWORD=odoo    volumes:      - ./db:/var/lib/postgresql/data  odoo:    image: odoo:17    depends_on:      - db    ports:      - "8069:8069"    environment:      - HOST=db      - USER=odoo      - PASSWORD=odoo    volumes:      - ./addons:/mnt/extra-addons      - ./config:/etc/odoo
+3) Levantar Odoo
+
+
+docker compose up -d
+4) Abrir Odoo
+Ve a: http://localhost:8069
+Crea la base de datos (anota el usuario admin y la clave).
