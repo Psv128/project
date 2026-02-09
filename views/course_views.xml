@@ -3,10 +3,10 @@
         <field name="name">academy.course.tree</field>
         <field name="model">academy.course</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="price"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -20,11 +20,11 @@
                         <field name="name"/>
                         <field name="price"/>
                         <field name="student_ids">
-                            <tree string="Alumnos matriculados">
+                            <list string="Alumnos matriculados">
                                 <field name="name"/>
                                 <field name="age"/>
                                 <field name="course_cost"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </sheet>
